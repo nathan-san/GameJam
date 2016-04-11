@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(controller.A != 0)
         {
+            Debug.Log("A");
         }
     }
 

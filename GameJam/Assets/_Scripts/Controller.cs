@@ -24,14 +24,15 @@ public class Controller : MonoBehaviour
     private int i_joystickNumber;
 
     void Start() {
-        //player = GetComponent<PlayerMovement>();
+        player = GetComponent<PlayerMovement>();
+        
     }
 
 
     void ControllerToPlayer()
     {
         // Makes it so that the playerTag assigned to an object equals the joystickNumber of the Controller
-        /*switch (player.player.tag)
+        switch (player.gameObject.tag)
         {
             case Tags.str_player1:
                 i_joystickNumber = 1;
@@ -48,7 +49,7 @@ public class Controller : MonoBehaviour
             default:
                 i_joystickNumber = 0;
                 break;
-        }*/
+        }
     }
 
     // Getters & Setters
@@ -93,14 +94,12 @@ public class Controller : MonoBehaviour
         set { f_A = value; }
     }
 
-
     void Update()
     {
         ControllerToPlayer();
-
         string joystickString = i_joystickNumber.ToString();
 
-        f_leftStick_X = Input.GetAxis("LeftJoystickX_P" + joystickString);
+        /*f_leftStick_X = Input.GetAxis("LeftJoystickX_P" + joystickString);
         f_leftStick_Y = Input.GetAxis("LeftJoystickY_P" + joystickString);
 
         f_rightStick_X = Input.GetAxis("RightJoystickX_P" + joystickString);
@@ -108,7 +107,7 @@ public class Controller : MonoBehaviour
 
         f_rightTrigger = Input.GetAxis("RightTrigger_P" + joystickString);
         f_leftTrigger = Input.GetAxis("LeftTrigger_P" + joystickString);
-
+        */
         f_A = Input.GetAxis("A_P" + joystickString);
     }
 }
