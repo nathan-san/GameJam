@@ -19,7 +19,8 @@ public class Controller : MonoBehaviour
     private float f_rightTrigger;
     private float f_leftTrigger;
     private float f_A;
-   
+    private float f_X;
+
     [SerializeField]
     private int i_joystickNumber;
 
@@ -94,12 +95,19 @@ public class Controller : MonoBehaviour
         set { f_A = value; }
     }
 
+    public float X
+    {
+        get { return f_X; }
+        set { f_X = value; }
+    }
+
     void Update()
     {
         ControllerToPlayer();
         string joystickString = i_joystickNumber.ToString();
 
-        /*f_leftStick_X = Input.GetAxis("LeftJoystickX_P" + joystickString);
+        f_leftStick_X = Input.GetAxis("LeftJoystickX_P" + joystickString);
+        /*
         f_leftStick_Y = Input.GetAxis("LeftJoystickY_P" + joystickString);
 
         f_rightStick_X = Input.GetAxis("RightJoystickX_P" + joystickString);
@@ -109,6 +117,7 @@ public class Controller : MonoBehaviour
         f_leftTrigger = Input.GetAxis("LeftTrigger_P" + joystickString);
         */
         f_A = Input.GetAxis("A_P" + joystickString);
+        f_X = Input.GetAxis("X_P" + joystickString);
     }
 }
 

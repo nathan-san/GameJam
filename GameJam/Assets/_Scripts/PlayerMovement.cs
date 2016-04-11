@@ -15,7 +15,19 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(controller.A != 0)
         {
-            Debug.Log("A");
+            Debug.Log("Jump");
+        }
+        if(controller.LeftStick_X < 0)
+        {
+            Debug.Log("left");
+        }
+        else if (controller.LeftStick_X >0)
+        {
+            Debug.Log("Right");
+        }
+        if(controller.X != 0)
+        {
+            Debug.Log("Dash!");
         }
     }
 
