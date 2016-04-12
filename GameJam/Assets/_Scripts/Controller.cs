@@ -3,30 +3,21 @@ using System.Collections;
 
 public class Controller : MonoBehaviour
 {
-
-    /// 
-    /// f_ == float
-    /// i_ == int
-    /// str_string
-    /// 
-
     PlayerMovement player;
 
     private float f_leftStick_X;
-    private float f_leftStick_Y;
-    private float f_rightStick_X;
-    private float f_rightStick_Y;
-    private float f_rightTrigger;
-    private float f_leftTrigger;
     private float f_A;
     private float f_X;
 
     [SerializeField]
     private int i_joystickNumber;
+    private string joystickString;
 
     void Start() {
         player = GetComponent<PlayerMovement>();
+        ControllerToPlayer();
         
+
     }
 
 
@@ -51,42 +42,13 @@ public class Controller : MonoBehaviour
                 i_joystickNumber = 0;
                 break;
         }
+        joystickString = i_joystickNumber.ToString();
     }
 
     // Getters & Setters
-       public float LeftStick_Y
-    {
-        get { return f_leftStick_Y; }
-        set { f_leftStick_Y = value; }
-    }
-
     public float LeftStick_X {
         get { return f_leftStick_X; }
         set { f_leftStick_X = value; }
-    }
-
-    public float RightStick_X
-    {
-        get { return f_rightStick_X; }
-        set { f_rightStick_X = value; }
-    }
-
-    public float RightStick_Y
-    {
-        get { return f_rightStick_Y; }
-        set { f_rightStick_Y = value; }
-    }
-
-    public float RightTrigger
-    {
-        get { return f_rightTrigger; }
-        set { f_rightTrigger = value; }
-    }
-
-    public float LeftTrigger
-    {
-        get { return f_leftTrigger; }
-        set { f_leftTrigger = value; }
     }
 
     public float A
@@ -101,21 +63,9 @@ public class Controller : MonoBehaviour
         set { f_X = value; }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        ControllerToPlayer();
-        string joystickString = i_joystickNumber.ToString();
-
         f_leftStick_X = Input.GetAxis("LeftJoystickX_P" + joystickString);
-        /*
-        f_leftStick_Y = Input.GetAxis("LeftJoystickY_P" + joystickString);
-
-        f_rightStick_X = Input.GetAxis("RightJoystickX_P" + joystickString);
-        f_rightStick_Y = Input.GetAxis("RightJoystickY_P" + joystickString);
-
-        f_rightTrigger = Input.GetAxis("RightTrigger_P" + joystickString);
-        f_leftTrigger = Input.GetAxis("LeftTrigger_P" + joystickString);
-        */
         f_A = Input.GetAxis("A_P" + joystickString);
         f_X = Input.GetAxis("X_P" + joystickString);
     }
