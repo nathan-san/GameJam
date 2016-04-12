@@ -35,7 +35,7 @@ public class CameraMovement : MonoBehaviour {
     IEnumerator CatchIUpWithFirstPlayer(float playerPosY)
     {
         cathingUpWithPlayers = true;
-        extraSpeed = 0.05f;
+        extraSpeed = 0.1f;
         while (transform.position.y+4f < playerPosY)
         {
             yield return new WaitForFixedUpdate();

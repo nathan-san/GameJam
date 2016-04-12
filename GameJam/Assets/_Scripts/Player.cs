@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
     private float jumpForce = 100f;
     [SerializeField]
     private bool stopsWithJumpWhenPressingUp = false;
-    
+    [SerializeField]
     private float aceleration = 5f;
     
     private float Xspeed = 0;
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour {
                 {
                     Debug.Log(jumpCounter);
                     jumpCounter++;
-                    Yspeed = maxGravity;
+                    Yspeed = jumpForce;
                 }
 
             }
