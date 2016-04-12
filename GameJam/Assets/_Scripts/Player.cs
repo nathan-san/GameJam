@@ -204,8 +204,9 @@ public class Player : MonoBehaviour {
         {
             left = false;
             right = true;
-            transform.localScale = new Vector3(1, 1, 1);
-            if(Xspeed == 0)
+            transform.localScale = new Vector3(10, transform.localScale.y, 1);
+            //transform.eulerAngles = new Vector2(0, 0);
+            if (Xspeed == 0)
             {
                 Xspeed = 3;
             }
@@ -214,7 +215,8 @@ public class Player : MonoBehaviour {
         {
             left = true;
             right = false;
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-10, transform.localScale.y, 1);
+            //transform.eulerAngles = new Vector2(0, 180);
             if (Xspeed == 0)
             {
                 Xspeed = -3;
