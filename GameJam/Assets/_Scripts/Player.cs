@@ -14,7 +14,9 @@ public class Player : MonoBehaviour {
     private bool stopsWithJumpWhenPressingUp = false;
     [SerializeField]
     private float aceleration = 5f;
-    
+
+    Controller controller;
+
     private float Xspeed = 0;
     private float Yspeed = 0;
     private bool grounded = false;
@@ -23,10 +25,11 @@ public class Player : MonoBehaviour {
     private bool right = true;
     private int jumpCounter = 1;
     private bool sliding = false;
-
+    private bool pressJump = false;
     private Animator animator;
     void Start () {
-       //animator = GetComponent<Animator>();
+        controller = GetComponent<Controller>();
+        //animator = GetComponent<Animator>();
     }
 
     
@@ -86,18 +89,20 @@ public class Player : MonoBehaviour {
     void JumpPlayer()
     {
         //if the player stop pressing the up button, the player will make small jumps.
-        if (Input.GetKey("up"))
+        if (controller.A !=0)
         {
             if (grounded)
             {
                 //jump
-                Yspeed = jumpForce;
-                jumpCounter++;
-            }
-            else if (Input.GetKeyDown("up"))
-            {
-                if (walled)
+                if(jumpCounter == 0)
                 {
+                    Yspeed = jumpForce;
+                    jumpCounter++;
+                }
+                
+            }
+            else if(walled)
+            {
                     //walljump
                     Yspeed = jumpForce;
                     jumpCounter = 1;
@@ -112,15 +117,15 @@ public class Player : MonoBehaviour {
                         Xspeed = -maxspeed / 1f;
                         ChangeDirection(false);
                     }
-                    
-                }
-                else if (jumpCounter < 2)
+
+            }
+            else
+            {
+                if (jumpCounter < 2 && Yspeed < 0)
                 {
-                    Debug.Log(jumpCounter);
                     jumpCounter++;
                     Yspeed = jumpForce;
                 }
-
             }
         }
         else if (!grounded && Yspeed > 0)
@@ -143,7 +148,7 @@ public class Player : MonoBehaviour {
             StartCoroutine(Slide());
         }
         //moves the player
-        if (Input.GetKey("left") && Xspeed > -maxspeed && !sliding)
+        if (controller.LeftStick_X < 0 && Xspeed > -maxspeed && !sliding)
         {
             //animator.SetBool("movesHorizontal",true);
             ChangeDirection(false);
@@ -153,7 +158,7 @@ public class Player : MonoBehaviour {
             }
             Xspeed -= aceleration;
         }
-        else if (Input.GetKey("right") && Xspeed < maxspeed && !sliding)
+        else if (controller.LeftStick_X >0 && Xspeed < maxspeed && !sliding)
         {
             //animator.SetBool("movesHorizontal", true);
 
@@ -189,7 +194,7 @@ public class Player : MonoBehaviour {
 
         }
 
-        if(Input.GetKey("left") == false && Input.GetKey("right") == false)
+        if(controller.LeftStick_X < 0 == false && controller.LeftStick_X > 0 == false)
         {
             //animator.SetBool("movesHorizontal", false);
         }
@@ -227,7 +232,7 @@ public class Player : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
         //you know what this does! ;) 
-        if (other.gameObject.tag == "ground")
+        if (other.gameObject.tag == "ground" && Yspeed < 0)
         {
             grounded = true;
             

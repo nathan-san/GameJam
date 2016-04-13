@@ -17,7 +17,7 @@ public class DestroyChunks : MonoBehaviour {
 
 	private void CheckIfAtBoundrey () {
 		for (int i = 0; i < _generate.TilesY.Count; i++) {
-			if (_generate.TilesY [i].transform.position.y + 16 < Camera.main.transform.position.y - GetCameraSize ().y) {
+			if (_generate.TilesY [i].transform.position.y + 30 < Camera.main.transform.position.y - GetCameraSize ().y) {
 				_generate.RemoveTiles (_generate.TilesY [i].gameObject);
 			}
 		}

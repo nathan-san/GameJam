@@ -8,5 +8,10 @@ public class OutofboundsPlayer : MonoBehaviour {
 
 	public void DestroyPlayer(){
 		Destroy (gameObject);
+        if(GetComponent<PlayerID>() && GameObject.Find("Main Camera") != null)
+        {
+            GameObject.Find("Main Camera").GetComponent<CameraMovement>().CheckIfSomeoneWon(GetComponent<PlayerID>().ID);
+        }
 	}
+
 }

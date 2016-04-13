@@ -1,46 +1,46 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using System.Collections.Generic;
 public class CameraMovement : MonoBehaviour {
-    [SerializeField]
-	private Text timeRunning;
 	float currentTime = 0;
-	float speed = 0.005f;
-    private float extraSpeed = 0;
     [SerializeField]
-    private GameObject[] players;
-    private bool cathingUpWithPlayers = false;
+	float speed = 0.005f;
+    [SerializeField]
+    float aceleration = 0.001f;
+    [SerializeField]
+    private List<GameObject> players;
+    [SerializeField]
+    private Text winText;
 	void FixedUpdate(){
 		currentTime += Time.deltaTime;
-		if (currentTime >= 10f) {
-			speed = 0.01f;
-		}
-		if (currentTime >= 20f) {
-			speed = 0.015f;
-		}
-		transform.Translate (Vector2.up * (speed + extraSpeed));
-		timeRunning.text = "Time running: " + Mathf.Floor(currentTime) + " Seconds";
+
+        speed += aceleration;
+		transform.Translate (Vector2.up * speed);
         foreach(GameObject player in players)
         {
-            if(player != null && !cathingUpWithPlayers)
+            if(player != null)
             {
                 if (player.transform.position.y > transform.position.y + 4f)
                 {
-                    StartCoroutine(CatchIUpWithFirstPlayer(player.transform.position.y));
+                    transform.position = new Vector3(transform.position.x, player.transform.position.y - 4f, transform.position.z);
                 }
             }
         }
 	}
-    IEnumerator CatchIUpWithFirstPlayer(float playerPosY)
+    public void CheckIfSomeoneWon(int id)
     {
-        cathingUpWithPlayers = true;
-        extraSpeed = 0.1f;
-        while (transform.position.y+4f < playerPosY)
+        players.RemoveAt(id);
+        if (players.Count < 2)
         {
-            yield return new WaitForFixedUpdate();
+            winText.text = players[0].gameObject.tag+" has won!";
         }
-        extraSpeed = 0;
-        cathingUpWithPlayers = false;
+        StartCoroutine(GoBackToMenu());
+    }
+    IEnumerator GoBackToMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        players.RemoveAt(0);
+        Application.LoadLevel("Menu");
     }
 }
